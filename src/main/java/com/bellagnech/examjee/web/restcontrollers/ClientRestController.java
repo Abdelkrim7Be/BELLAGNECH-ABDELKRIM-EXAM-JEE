@@ -5,7 +5,6 @@ import com.bellagnech.examjee.dtos.CreditDTO;
 import com.bellagnech.examjee.services.ClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +18,13 @@ import java.util.List;
 @RequestMapping("/api/clients")
 @Tag(name = "Client", description = "API pour gérer les clients")
 public class ClientRestController {
-    
+
     private final ClientService clientService;
-    
-    @Autowired
+
     public ClientRestController(ClientService clientService) {
         this.clientService = clientService;
     }
-    
+
     /**
      * Récupère tous les clients.
      *
@@ -37,7 +35,7 @@ public class ClientRestController {
     public ResponseEntity<List<ClientDTO>> getAllClients() {
         return ResponseEntity.ok(clientService.getAllClients());
     }
-    
+
     /**
      * Récupère un client par son ID.
      *
@@ -51,7 +49,7 @@ public class ClientRestController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
+
     /**
      * Ajoute un nouveau client.
      *
@@ -68,7 +66,7 @@ public class ClientRestController {
             return ResponseEntity.badRequest().build();
         }
     }
-    
+
     /**
      * Met à jour un client existant.
      *
@@ -86,7 +84,7 @@ public class ClientRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     /**
      * Supprime un client.
      *
@@ -103,7 +101,7 @@ public class ClientRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     /**
      * Récupère tous les crédits d'un client.
      *
@@ -120,7 +118,7 @@ public class ClientRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     /**
      * Recherche des clients par nom.
      *

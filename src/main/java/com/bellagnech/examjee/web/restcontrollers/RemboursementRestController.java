@@ -5,7 +5,7 @@ import com.bellagnech.examjee.enums.TypeRemboursement;
 import com.bellagnech.examjee.services.RemboursementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,13 @@ import java.util.List;
 @RequestMapping("/api/remboursements")
 @Tag(name = "Remboursement", description = "API pour gérer les remboursements")
 public class RemboursementRestController {
-    
+
     private final RemboursementService remboursementService;
-    
-    @Autowired
+
     public RemboursementRestController(RemboursementService remboursementService) {
         this.remboursementService = remboursementService;
     }
-    
+
     /**
      * Récupère tous les remboursements.
      *
@@ -39,7 +38,7 @@ public class RemboursementRestController {
     public ResponseEntity<List<RemboursementDTO>> getAllRemboursements() {
         return ResponseEntity.ok(remboursementService.getAllRemboursements());
     }
-    
+
     /**
      * Récupère un remboursement par son ID.
      *
@@ -53,7 +52,7 @@ public class RemboursementRestController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
+
     /**
      * Ajoute un nouveau remboursement à un crédit.
      *
@@ -70,7 +69,7 @@ public class RemboursementRestController {
             return ResponseEntity.badRequest().build();
         }
     }
-    
+
     /**
      * Met à jour un remboursement existant.
      *
@@ -88,7 +87,7 @@ public class RemboursementRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     /**
      * Supprime un remboursement.
      *
@@ -105,7 +104,7 @@ public class RemboursementRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     /**
      * Récupère tous les remboursements d'un crédit.
      *
@@ -118,7 +117,7 @@ public class RemboursementRestController {
         List<RemboursementDTO> remboursements = remboursementService.getRemboursementsByCreditId(creditId);
         return ResponseEntity.ok(remboursements);
     }
-    
+
     /**
      * Récupère tous les remboursements par type.
      *
@@ -131,7 +130,7 @@ public class RemboursementRestController {
         List<RemboursementDTO> remboursements = remboursementService.getRemboursementsByType(type);
         return ResponseEntity.ok(remboursements);
     }
-    
+
     /**
      * Récupère tous les remboursements effectués après une date donnée.
      *
@@ -145,7 +144,7 @@ public class RemboursementRestController {
         List<RemboursementDTO> remboursements = remboursementService.getRemboursementsAfterDate(date);
         return ResponseEntity.ok(remboursements);
     }
-    
+
     /**
      * Calcule le montant total des remboursements pour un crédit.
      *

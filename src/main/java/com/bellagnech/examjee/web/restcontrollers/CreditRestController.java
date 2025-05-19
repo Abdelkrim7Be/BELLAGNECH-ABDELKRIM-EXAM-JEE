@@ -6,7 +6,7 @@ import com.bellagnech.examjee.enums.TypeBien;
 import com.bellagnech.examjee.services.CreditService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +20,13 @@ import java.util.List;
 @RequestMapping("/api/credits")
 @Tag(name = "Credit", description = "API pour gérer les crédits")
 public class CreditRestController {
-    
+
     private final CreditService creditService;
-    
-    @Autowired
+
     public CreditRestController(CreditService creditService) {
         this.creditService = creditService;
     }
-    
+
     /**
      * Récupère tous les crédits.
      *
@@ -38,7 +37,7 @@ public class CreditRestController {
     public ResponseEntity<List<CreditDTO>> getAllCredits() {
         return ResponseEntity.ok(creditService.getAllCredits());
     }
-    
+
     /**
      * Récupère un crédit par son ID.
      *
@@ -52,7 +51,7 @@ public class CreditRestController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
+
     /**
      * Ajoute un nouveau crédit personnel.
      *
@@ -69,7 +68,7 @@ public class CreditRestController {
             return ResponseEntity.badRequest().build();
         }
     }
-    
+
     /**
      * Ajoute un nouveau crédit immobilier.
      *
@@ -86,7 +85,7 @@ public class CreditRestController {
             return ResponseEntity.badRequest().build();
         }
     }
-    
+
     /**
      * Ajoute un nouveau crédit professionnel.
      *
@@ -103,7 +102,7 @@ public class CreditRestController {
             return ResponseEntity.badRequest().build();
         }
     }
-    
+
     /**
      * Met à jour un crédit existant.
      *
@@ -121,7 +120,7 @@ public class CreditRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     /**
      * Supprime un crédit.
      *
@@ -138,7 +137,7 @@ public class CreditRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     /**
      * Récupère tous les remboursements d'un crédit.
      *
@@ -155,7 +154,7 @@ public class CreditRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     /**
      * Récupère tous les crédits personnels.
      *
@@ -166,7 +165,7 @@ public class CreditRestController {
     public ResponseEntity<List<CreditPersonnelDTO>> getAllCreditsPersonnels() {
         return ResponseEntity.ok(creditService.getAllCreditsPersonnels());
     }
-    
+
     /**
      * Récupère tous les crédits immobiliers.
      *
@@ -177,7 +176,7 @@ public class CreditRestController {
     public ResponseEntity<List<CreditImmobilierDTO>> getAllCreditsImmobiliers() {
         return ResponseEntity.ok(creditService.getAllCreditsImmobiliers());
     }
-    
+
     /**
      * Récupère tous les crédits professionnels.
      *
@@ -188,7 +187,7 @@ public class CreditRestController {
     public ResponseEntity<List<CreditProfessionnelDTO>> getAllCreditsProfessionnels() {
         return ResponseEntity.ok(creditService.getAllCreditsProfessionnels());
     }
-    
+
     /**
      * Recherche des crédits personnels par motif.
      *
@@ -200,7 +199,7 @@ public class CreditRestController {
     public ResponseEntity<List<CreditPersonnelDTO>> searchCreditsPersonnelsByMotif(@RequestParam String motif) {
         return ResponseEntity.ok(creditService.searchCreditsPersonnelsByMotif(motif));
     }
-    
+
     /**
      * Recherche des crédits immobiliers par type de bien.
      *
