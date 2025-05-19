@@ -15,12 +15,12 @@ import java.util.Arrays;
 
 /**
  * Classe pour initialiser des données de test pour l'API.
- * Cette classe est activée uniquement avec le profil "dev".
+ * Cette classe est activée uniquement avec les profils "dev" ou "h2".
  */
 @Configuration
-@Profile("dev")
+@Profile({"dev", "h2"})
 public class TestDataInitializer {
-    
+
     /**
      * Initialise des données de test pour l'API.
      *
@@ -40,25 +40,25 @@ public class TestDataInitializer {
             CreditImmobilierRepository creditImmobilierRepository,
             CreditProfessionnelRepository creditProfessionnelRepository,
             RemboursementRepository remboursementRepository) {
-        
+
         return args -> {
             // Vérifier si des données existent déjà
             if (clientRepository.count() > 0) {
                 return; // Ne pas initialiser si des données existent déjà
             }
-            
+
             // Créer des clients
             Client client1 = new Client();
             client1.setNom("Dupont Jean");
             client1.setEmail("jean.dupont@example.com");
-            
+
             Client client2 = new Client();
             client2.setNom("Martin Sophie");
             client2.setEmail("sophie.martin@example.com");
-            
+
             // Sauvegarder les clients
             clientRepository.saveAll(Arrays.asList(client1, client2));
-            
+
             // Créer des crédits personnels
             CreditPersonnel creditPersonnel = new CreditPersonnel();
             creditPersonnel.setClient(client1);
@@ -69,7 +69,7 @@ public class TestDataInitializer {
             creditPersonnel.setDureeRemboursement(24);
             creditPersonnel.setTauxInteret(3.5);
             creditPersonnel.setMotif("Achat de mobilier");
-            
+
             // Créer des crédits immobiliers
             CreditImmobilier creditImmobilier = new CreditImmobilier();
             creditImmobilier.setClient(client1);
@@ -80,7 +80,7 @@ public class TestDataInitializer {
             creditImmobilier.setDureeRemboursement(240);
             creditImmobilier.setTauxInteret(2.1);
             creditImmobilier.setTypeBien(TypeBien.APPARTEMENT);
-            
+
             // Créer des crédits professionnels
             CreditProfessionnel creditProfessionnel = new CreditProfessionnel();
             creditProfessionnel.setClient(client2);
@@ -91,28 +91,28 @@ public class TestDataInitializer {
             creditProfessionnel.setTauxInteret(4.2);
             creditProfessionnel.setMotif("Achat de matériel");
             creditProfessionnel.setRaisonSociale("SARL Martin Entreprise");
-            
+
             // Sauvegarder les crédits
             creditPersonnelRepository.save(creditPersonnel);
             creditImmobilierRepository.save(creditImmobilier);
             creditProfessionnelRepository.save(creditProfessionnel);
-            
+
             // Créer des remboursements
             Remboursement remboursement1 = new Remboursement();
             remboursement1.setCredit(creditPersonnel);
             remboursement1.setDate(LocalDate.now().minusDays(15));
             remboursement1.setMontant(500.0);
             remboursement1.setType(TypeRemboursement.MENSUALITE);
-            
+
             Remboursement remboursement2 = new Remboursement();
             remboursement2.setCredit(creditImmobilier);
             remboursement2.setDate(LocalDate.now().minusDays(10));
             remboursement2.setMontant(800.0);
             remboursement2.setType(TypeRemboursement.MENSUALITE);
-            
+
             // Sauvegarder les remboursements
             remboursementRepository.saveAll(Arrays.asList(remboursement1, remboursement2));
-            
+
             System.out.println("Données de test initialisées avec succès !");
         };
     }
